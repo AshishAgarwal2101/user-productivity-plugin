@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Productivity Tracker",
+    "version": "1.0",
+    "description": "A productivity tracker for Chrome",
+    "permissions": [
+      "tabs",
+      "activeTab",
+      "storage"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["contentScript.js"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
+  
