@@ -65,26 +65,49 @@ let userProductivityAlert = (message) => {
   });
 };
 
+let checkAndResetTimers = (websiteGoal, browserGoal) => {
+  const currDate = new Date().toLocaleDateString("en-IN");
+  if(websiteGoal && websiteGoal.forDate !== currDate) {
+    websiteGoal.timeSpent = 0;
+    websiteGoal.alertShown = false;
+  }
+  if(browserGoal && browserGoal.forDate !== currDate) {
+    browserGoal.timeSpent = 0;
+    browserGoal.alertShown = false;
+  }
+};
+
+let saveToStorage = (websiteUrl, websiteGoal, browserGoal) => {
+  if(browserGoal) {
+    localStorage.setItem("goal:browser", JSON.stringify(browserGoal));
+  }
+  if(websiteGoal) {
+    localStorage.setItem("goal:"+websiteUrl, JSON.stringify(websiteGoal));
+  }
+};
+
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     const websiteUrl = window.location.host;
+    const currDate = new Date().toLocaleDateString("en-IN");
 
     if (message.type === "startWebsiteTracking") {
       const websiteGoal = {
         url: websiteUrl,
+        forDate: currDate,
         timeLimit: message.websiteGoals[websiteUrl].timeLimit,
-        maxTabs: message.websiteGoals[websiteUrl].maxTabs,
         timeSpent: 0,
-        numTabs: 1
+        alertShown: false
       };
 
       const browserGoal = {
+        forDate: currDate,
         timeSpent: 0,
-        timeLimit: message.browserTime
+        timeLimit: message.browserTime,
+        alertShown: false
       };
-      localStorage.setItem("goal:"+websiteUrl, JSON.stringify(websiteGoal));
-      localStorage.setItem("goal:browser", JSON.stringify(browserGoal));
 
+      saveToStorage(websiteUrl, websiteGoal, browserGoal);
       sendResponse({ success: true });
     }
   });
@@ -92,27 +115,30 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   let currentTabUrl = window.location.host;
   let currentTabStartTime = Date.now();
   setInterval(function() {
-    const currentTime = Date.now();
-    const timeElapsed = (currentTime - currentTabStartTime) / 1000; // Convert to seconds
-  
     const websiteGoal = JSON.parse(localStorage.getItem("goal:"+currentTabUrl));
     const browserGoal = JSON.parse(localStorage.getItem("goal:browser"));
+    checkAndResetTimers(websiteGoal, browserGoal);
+
+    const currentTime = Date.now();
+    const timeElapsed = (currentTime - currentTabStartTime) / 1000; // Convert to seconds
 
     if (websiteGoal) {
       websiteGoal.timeSpent += timeElapsed;
-      if (websiteGoal.timeSpent > websiteGoal.timeLimit) {
+      if (websiteGoal.timeSpent > websiteGoal.timeLimit && !websiteGoal.alertShown) {
+        websiteGoal.alertShown = true;
         userProductivityAlert("You have exceeded daily limit for " + currentTabUrl + ". Please close this website.");
       }
-      localStorage.setItem("goal:"+currentTabUrl, JSON.stringify(websiteGoal));
     }
 
     if(browserGoal) {
       browserGoal.timeSpent += timeElapsed;
-      if (browserGoal.timeSpent > browserGoal.timeLimit) {
+      if (browserGoal.timeSpent > browserGoal.timeLimit && !browserGoal.alertShown) {
+        browserGoal.alertShown = true;
         userProductivityAlert("You have exceeded daily browsing limit. Please stop all browsing tasks and start again tomorrow.");
       }
-      localStorage.setItem("goal:browser", JSON.stringify(browserGoal));
     }
+    
+    saveToStorage(currentTabUrl, websiteGoal, browserGoal);
   
     currentTabUrl = window.location.host;
     currentTabStartTime = currentTime;

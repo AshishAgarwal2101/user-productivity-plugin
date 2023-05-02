@@ -44,14 +44,11 @@
 <body>
   <h2>Website Goals</h2>
   <form id="setGoals">
-    <label for="browserTime">Maximum browser time (hours):</label>
+    <label for="browserTime">Maximum browser time per day (hours):</label>
     <input type="number" name="browserTime" id="browserTime" min="0" step="0.01" required>
     <br>
-    <label for="websiteTime">Maximum time per website (hours):</label>
+    <label for="websiteTime">Maximum time for this website per day (hours):</label>
     <input type="number" name="websiteTime" id="websiteTime" min="0" step="0.01" required>
-    <br>
-    <label for="websiteTabs">Maximum tabs per website:</label>
-    <input type="number" name="websiteTabs" id="websiteTabs" min="0" required>
     <br>
     <input type="submit" value="Set Goals">
   </form>
