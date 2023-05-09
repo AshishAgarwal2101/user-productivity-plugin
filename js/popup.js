@@ -1,7 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  let updateCurrentDisplayedGoals = (goals) => {
+  
+    let updateCurrentDisplayedGoals = (goals) => {
     let {browserTime, websiteGoals} = goals;
     let browsingPTag = document.querySelector("#browsingLimit");
     browsingPTag.innerHTML = browserTime ? (browserTime / (60*60.0)) + " hrs" : "";
@@ -41,15 +42,22 @@ document.addEventListener('DOMContentLoaded', function() {
   let goals = JSON.parse(localStorage.getItem('userProductivityGoals')) || {browserTime: null, websiteGoals: {}};
   updateCurrentDisplayedGoals(goals);
 
+  let form = document.getElementById('setGoals');
+  let message = document.getElementById('message');
   document.getElementById('setGoals').addEventListener('submit', function(event) {
     event.preventDefault();
+
     let newBrowserTime = parseFloat(document.getElementById('browserTime').value)*60*60;
     let newWebsiteTime = parseFloat(document.getElementById('websiteTime').value)*60*60;
 
     let newWebsiteGoal = {
       timeLimit: newWebsiteTime
     };
-    updateGoals(goals, newWebsiteGoal, newBrowserTime);  
+    updateGoals(goals, newWebsiteGoal, newBrowserTime);
+    if (!message.classList.contains('show')) {
+      message.textContent = 'Your goals are set';
+      message.classList.add('show');
+    }
   });
 });
   

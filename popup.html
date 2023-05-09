@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -66,6 +66,172 @@
       </tbody>
     </table>
   </div>
+  <script src="js/popup.js"></script>
+</body>
+</html>
+-->
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Website Goals</title>
+  <style>
+    body {
+      width: 250px;
+    }
+    input[type="number"] {
+      width: 60px;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    #setGoals, #currentGoals {
+      display: none;
+    }
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+    }
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+    }
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    .tab button.active {
+      background-color: #ccc;
+    }
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Website Goals</h2>
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'setGoalsTab')">Set Goals</button>
+    <button class="tablinks" onclick="openTab(event, 'currentGoalsTab')">Current Goals</button>
+  </div>
+  <form id="setGoalsTab" class="tabcontent">
+    <label for="browserTime">Maximum browser time per day (hours):</label>
+    <input type="number" name="browserTime" id="browserTime" min="0" step="0.01" required>
+    <br>
+    <label for="websiteTime">Maximum time for this website per day (hours):</label>
+    <input type="number" name="websiteTime" id="websiteTime" min="0" step="0.01" required>
+    <br>
+    <input type="submit" value="Set Goals">
+  </form>
+  <div id="currentGoalsTab" class="tabcontent">
+    <h3>Current Goals</h3>
+    <p>Browsing Time Limit: <span id="browsingLimit"></span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Website</th>
+          <th>Time Limit</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <script src="js/po.js"></script>
+  <script src="js/popup.js"></script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Website Goals</title>
+  <style>
+    body {
+      width: 250px;
+    }
+    input[type="number"] {
+      width: 60px;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    #currentGoals {
+      margin-top: 10px;
+    }
+    #currentGoals table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #currentGoals th {
+      text-align: left;
+      padding: 5px;
+      background-color: #eee;
+      border: 1px solid #ccc;
+    }
+    #currentGoals td {
+      text-align: left;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    #currentGoals .url {
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    #currentGoals .timeLimit {
+      width: 50px;
+    }
+    #message.show {
+    color: green;
+    font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Website Goals</h2>
+  <button id="showForm">Website Goals</button>
+  <button id="showGoals">Current Goals</button>
+  <div id="formWrapper" style="display:none">
+    <form id="setGoals">
+      <label for="browserTime">Maximum browser time per day (hours):</label>
+      <input type="number" name="browserTime" id="browserTime" min="0" step="0.01" required>
+      <br>
+      <label for="websiteTime">Maximum time for this website per day (hours):</label>
+      <input type="number" name="websiteTime" id="websiteTime" min="0" step="0.01" required>
+      <br>
+      <input type="submit" value="Set Goals">
+    </form>
+  </div>
+  <div id="message"></div>
+  <div id="goalsWrapper" style="display:none">
+    <div id="currentGoals">
+      <h3>Current Goals</h3>
+      <p>Browsing Time Limit: <span id="browsingLimit"></span></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Website</th>
+            <th>Time Limit</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="js/po.js"></script>
   <script src="js/popup.js"></script>
 </body>
 </html>
