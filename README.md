@@ -1,8 +1,4 @@
-# PLUGIN FOR USER PRODUCTIVITY
-
-## Tam Members
-* Ashish Agarwal
-* Surya Teja Nalluri
+# A CHROME PLUGIN FOR USER PRODUCTIVITY
 
 ## Overview
 A chrome plugin designed for user productivity.
