@@ -2,18 +2,27 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   
-    let updateCurrentDisplayedGoals = (goals) => {
+  let updateCurrentDisplayedGoals = async (goals) => {
     let {browserTime, websiteGoals} = goals;
+    const currentTab = await getCurrentTab();
     let browsingPTag = document.querySelector("#browsingLimit");
-    browsingPTag.innerHTML = browserTime ? (browserTime / (60*60.0)) + " hrs" : "";
+    browsingPTag.innerHTML = browserTime ? (browserTime / (60)) + " mins" : "";
     let tbody = document.querySelector('#currentGoals tbody');
     tbody.innerHTML = '';
     for (let url in websiteGoals) {
       let row = document.createElement('tr');
       row.innerHTML = '<td class="url">' + url + '</td>' +
-                      '<td class="timeLimit">' + (websiteGoals[url].timeLimit/(60*60.0)) + ' hrs</td>';
+                      '<td class="timeLimit">' + (websiteGoals[url].timeLimit/(60)) + ' mins</td>';
       tbody.appendChild(row);
     }
+
+    const websiteUrlGoalSetting = document.getElementById('websiteUrl');
+    websiteUrlGoalSetting.innerHTML = currentTab.url ? currentTab.url : "this website";
+    const browserTimeSetter = document.getElementById('browserTime');
+    const websiteTimeSetter = document.getElementById('websiteTime');
+    browserTimeSetter.value = browserTime ? (browserTime / (60)) : 0;
+    websiteTimeSetter.value = websiteGoals[currentTab.url] ? (websiteGoals[currentTab.url].timeLimit / (60)) : 0;
+    
   };
 
   let getCurrentTab = async() => {
@@ -35,7 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
       ...goals
     };
     
-    chrome.tabs.sendMessage(currentTab.tabId, message);
+    //chrome.tabs.sendMessage(currentTab.tabId, message);
+    await chrome.tabs.sendMessage(currentTab.tabId, message).catch(error => {
+        console.error('Failed to send message:', error);
+    });
     updateCurrentDisplayedGoals(goals);
   };
 
@@ -47,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('setGoals').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    let newBrowserTime = parseFloat(document.getElementById('browserTime').value)*60*60;
-    let newWebsiteTime = parseFloat(document.getElementById('websiteTime').value)*60*60;
+    let newBrowserTime = parseInt(document.getElementById('browserTime').value)*60;
+    let newWebsiteTime = parseInt(document.getElementById('websiteTime').value)*60;
 
     let newWebsiteGoal = {
       timeLimit: newWebsiteTime

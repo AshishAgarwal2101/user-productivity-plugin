@@ -110,7 +110,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
       saveToStorage(websiteUrl, websiteGoal, browserGoal);
       sendResponse({ success: true });
     }
-  });
+});
   
   let currentTabUrl = window.location.host;
   let currentTabStartTime = Date.now();
@@ -142,5 +142,5 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   
     currentTabUrl = window.location.host;
     currentTabStartTime = currentTime;
-  }, 10000); // Update every 10 seconds
+  }, 60000); // Update every 1 mins
   

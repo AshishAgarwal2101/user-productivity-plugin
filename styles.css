@@ -1,0 +1,181 @@
+:root {
+    --primary: #d6184b;
+    --primary-hover: #db5679;
+    --accent: #F5EBDD;
+    --background: #FAFAF8;
+    --text: #2C2C2C;
+    --text-light: #666666;
+    --border: #E0E0E0;
+}
+
+body {
+    width: 350px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: small;
+    padding: 15px;
+    background-color: var(--background);
+    margin: 0;
+}
+
+h2 {
+    color: var(--text);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+input[type="number"] {
+    width: 80px;
+    margin: 5px;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+#formWrapper, #goalsWrapper {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 15px;
+}
+
+#websiteTimeLabel {
+    margin-top: 10px;
+}
+
+.divider {
+    border: none;
+    height: 1px;
+    background-color: var(--primary);
+    margin: 15px 0;
+    opacity: 0.5;
+}
+
+#currentGoals table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#currentGoals th {
+    text-align: center;
+    padding: 10px;
+    background-color: var(--accent);
+    border: 1px solid var(--border);
+    font-weight: 600;
+    font-size: small;
+    color: var(--text);
+}
+
+#currentGoals td {
+    text-align: center;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: small;
+}
+
+#currentGoals .url {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#currentGoals .timeLimit {
+    width: 65px;
+    text-align: center;
+}
+
+#message.show {
+    color: var(--primary);
+    font-weight: 500;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: var(--accent);
+    border-radius: 4px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text);
+}
+
+input[type="submit"] {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--primary-hover);
+}
+
+.tab-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    margin-bottom: -2px;
+    transition: all 0.3s;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.tab-button:hover {
+    background: none;
+    color: var(--primary);
+}
+
+.tab-button.active {
+    border-bottom: 2px solid var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background: white;
+    border-radius: 4px;
+}
+
+.tab-content.active {
+    display: block;
+}
